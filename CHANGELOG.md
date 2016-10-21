@@ -1,3 +1,12 @@
+### 2.0.1 (2016-10-21)
+
+
+### 2.0.1 (2016-10-21)
+**autoSelectFirstSuggestOnBlur** Optional prop enables selection of first suggestion onBlur
+
+### 2.0.1 (2016-10-21)
+
+
 ## 2.0.0 (2016-10-07)
 
 
