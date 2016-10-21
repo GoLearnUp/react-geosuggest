@@ -119,6 +119,12 @@ class Geosuggest extends React.Component {
    */
   onInputBlur = () => {
     if (!this.state.ignoreBlur) {
+      if (this.props.autoSelectFirstSuggestOnBlur) {
+        console.log("-----------------------------------------")
+        console.log("---- autoselectfirst")
+        this.selectSuggest(this.state.suggests[0])
+      }
+
       this.hideSuggests();
     }
   }

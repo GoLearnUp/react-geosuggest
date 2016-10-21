@@ -28,6 +28,7 @@ export default {
   skipSuggest: React.PropTypes.func,
   getSuggestLabel: React.PropTypes.func,
   autoActivateFirstSuggest: React.PropTypes.bool,
+  autoSelectFirstSuggestOnBlur: React.PropTypes.bool,
   style: React.PropTypes.shape({
     input: React.PropTypes.object,
     suggests: React.PropTypes.object,

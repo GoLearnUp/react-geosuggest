@@ -76,7 +76,8 @@ function is(x, y) {
   if (x === y) {
     // Steps 1-5, 7-10
     // Steps 6.b-6.e: +0 != -0
-    return x !== 0 || 1 / x === 1 / y;
+    // Added the nonzero y check to make Flow happy, but it is redundant
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
   } else {
     // Step 6.a: NaN == NaN
     return x !== x && y !== y;
@@ -614,6 +615,12 @@ var Geosuggest = function (_React$Component) {
 
     _this.onInputBlur = function () {
       if (!_this.state.ignoreBlur) {
+        if (_this.props.autoSelectFirstSuggestOnBlur) {
+          console.log("-----------------------------------------");
+          console.log("---- autoselectfirst");
+          _this.selectSuggest(_this.state.suggests[0]);
+        }
+
         _this.hideSuggests();
       }
     };
@@ -852,7 +859,7 @@ var Geosuggest = function (_React$Component) {
     value: function updateSuggests() {
       var _this3 = this;
 
-      var suggestsGoogle = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+      var suggestsGoogle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var callback = arguments[1];
 
       var suggests = [],
@@ -899,7 +906,7 @@ var Geosuggest = function (_React$Component) {
   }, {
     key: 'updateActiveSuggest',
     value: function updateActiveSuggest() {
-      var suggests = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+      var suggests = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
       var activeSuggest = this.state.activeSuggest;
 
@@ -1043,7 +1050,8 @@ var Geosuggest = function (_React$Component) {
           { className: 'geosuggest__input-wrapper' },
           shouldRenderLabel && _react2.default.createElement(
             'label',
-            { htmlFor: attributes.id },
+            { className: 'geosuggest__label',
+              htmlFor: attributes.id },
             this.props.label
           ),
           input
@@ -1383,6 +1391,7 @@ exports.default = {
   skipSuggest: _react2.default.PropTypes.func,
   getSuggestLabel: _react2.default.PropTypes.func,
   autoActivateFirstSuggest: _react2.default.PropTypes.bool,
+  autoSelectFirstSuggestOnBlur: _react2.default.PropTypes.bool,
   style: _react2.default.PropTypes.shape({
     input: _react2.default.PropTypes.object,
     suggests: _react2.default.PropTypes.object,
